@@ -34,6 +34,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable}`}>
       <head>
         <meta name="p:domain_verify" content="b4a13c63a9ab32b863ac95fef6405c9f"/>
+        
       </head>
       <body className="antialiased min-height-screen bg-background text-foreground">
         {/* Navigation Bar */}
