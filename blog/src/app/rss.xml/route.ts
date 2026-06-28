@@ -13,9 +13,14 @@ export async function GET() {
 
   let rssItemsXml = '';
   posts.forEach((post: any) => {
-    // T-akked anaho l-link khaddal nfs l-domain exact
-    const cleanLink = post.link.replace(/^https?:\/\/prompttocraft\.vercel\.app/, CLAIMED_DOMAIN);
-    const cleanImage = post.image_url.replace(/^https?:\/\/prompttocraft\.vercel\.app/, CLAIMED_DOMAIN);
+    // Dynamically build full URL links matching CLAIMED_DOMAIN and the post slug
+    const cleanLink = `${CLAIMED_DOMAIN}/blog/${post.slug}`;
+    const cleanImage = post.coverImage.startsWith('http')
+      ? post.coverImage
+      : `${CLAIMED_DOMAIN}${post.coverImage}`;
+    
+    // Assign correct MIME type for the image enclosure
+    const imageType = post.coverImage.endsWith('.svg') ? 'image/svg+xml' : 'image/jpeg';
 
     rssItemsXml += `
       <item>
@@ -23,7 +28,7 @@ export async function GET() {
         <description><![CDATA[${post.description}]]></description>
         <link>${cleanLink}</link>
         <guid isPermaLink="true">${cleanLink}</guid>
-        <enclosure url="${cleanImage}" type="image/jpeg" />
+        <enclosure url="${cleanImage}" type="${imageType}" />
       </item>
     `;
   });
