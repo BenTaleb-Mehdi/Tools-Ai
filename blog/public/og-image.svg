@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="100%" height="100%">
+  <defs>
+    <!-- Premium Gradient Background -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#09090b" />
+      <stop offset="50%" stop-color="#18181b" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <!-- Etsy Highlight Orange Gradient -->
+    <linearGradient id="orange-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#fdba74" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="40" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-grad)" />
+
+  <!-- Subtle Glowing Orbs -->
+  <circle cx="1000" cy="150" r="250" fill="#f97316" fill-opacity="0.08" filter="url(#glow)" />
+  <circle cx="200" cy="500" r="300" fill="#fb923c" fill-opacity="0.04" filter="url(#glow)" />
+
+  <!-- Logo Icon -->
+  <g transform="translate(100, 150)">
+    <!-- Sparkles -->
+    <path d="M 0,-40 L 10,-10 L 40,0 L 10,10 L 0,40 L -10,10 L -40,0 L -10,-10 Z" fill="url(#orange-grad)" />
+    <path d="M 50,-10 L 55,0 L 65,2 L 55,4 L 50,15 L 45,4 L 35,2 L 45,0 Z" fill="#ffffff" fill-opacity="0.7" />
+  </g>
+
+  <!-- Brand Text -->
+  <text x="220" y="175" font-family="'Inter', system-ui, sans-serif" font-size="54" font-weight="900" fill="#ffffff">
+    Etsy<tspan fill="url(#orange-grad)">AI</tspan>Hub
+  </text>
+
+  <!-- Main Headline -->
+  <text x="100" y="340" font-family="'Inter', system-ui, sans-serif" font-size="64" font-weight="900" fill="#ffffff" letter-spacing="-1">
+    Supercharge Your Etsy Shop
+  </text>
+  <text x="100" y="420" font-family="'Inter', system-ui, sans-serif" font-size="64" font-weight="900" fill="url(#orange-grad)" letter-spacing="-1">
+    With Generative AI
+  </text>
+
+  <!-- Subtitle / Tagline -->
+  <text x="100" y="490" font-family="'Inter', system-ui, sans-serif" font-size="24" font-weight="500" fill="#a1a1aa">
+    The leading directory &amp; blog resource for modern Etsy entrepreneurs.
+  </text>
+
+  <!-- Decorative Border Accent -->
+  <rect x="30" y="30" width="1140" height="570" rx="20" fill="none" stroke="#27272a" stroke-width="2" stroke-dasharray="10 15" />
+</svg>
