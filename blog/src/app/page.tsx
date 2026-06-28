@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { getAllPosts, Post } from "@/lib/posts";
+import { Analytics } from "@vercel/analytics/next"
 import { 
   Sparkles, 
   ArrowRight, 
@@ -244,7 +245,7 @@ export default function Homepage() {
               </button>
             ))}
           </div>
-
+          <Analytics />
           {/* Articles list grid */}
           {filteredPosts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
