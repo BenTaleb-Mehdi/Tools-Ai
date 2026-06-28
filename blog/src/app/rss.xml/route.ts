@@ -3,21 +3,27 @@ import fs from 'fs';
 import path from 'path';
 
 export async function GET() {
-  // 1. Read posts.json nishan
   const jsonPath = path.join(process.cwd(), 'src', 'data', 'posts.json');
   const fileContents = fs.readFileSync(jsonPath, 'utf8');
   const posts = JSON.parse(fileContents);
 
-  // 2. Build RSS XML string
+  // 📢 9wleb: Hna 7et dynamic l-domain dyalk kifma m-verifiy f Pinterest nishan!
+  // (Ila m-verifiy b http:// dir http://)
+  const CLAIMED_DOMAIN = "https://prompttocraft.vercel.app"; 
+
   let rssItemsXml = '';
   posts.forEach((post: any) => {
+    // T-akked anaho l-link khaddal nfs l-domain exact
+    const cleanLink = post.link.replace(/^https?:\/\/prompttocraft\.vercel\.app/, CLAIMED_DOMAIN);
+    const cleanImage = post.image_url.replace(/^https?:\/\/prompttocraft\.vercel\.app/, CLAIMED_DOMAIN);
+
     rssItemsXml += `
       <item>
         <title><![CDATA[${post.title}]]></title>
         <description><![CDATA[${post.description}]]></description>
-        <link>${post.link}</link>
-        <guid isPermaLink="true">${post.link}</guid>
-        <enclosure url="${post.image_url}" type="image/jpeg" />
+        <link>${cleanLink}</link>
+        <guid isPermaLink="true">${cleanLink}</guid>
+        <enclosure url="${cleanImage}" type="image/jpeg" />
       </item>
     `;
   });
@@ -26,7 +32,7 @@ export async function GET() {
     <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
       <channel>
         <title>The AI Artisan Feed</title>
-        <link>https://prompttocraft.vercel.app</link>
+        <link>${CLAIMED_DOMAIN}</link>
         <description>AI Tools and Smart Selling Hacks for Etsy</description>
         <language>en-us</language>
         ${rssItemsXml}
@@ -34,7 +40,6 @@ export async function GET() {
     </rss>
   `;
 
-  // 3. Return as XML Content-Type
   return new NextResponse(rssFeedXml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
