@@ -1,0 +1,37 @@
+name: Automated Pinterest Poster
+
+on:
+  schedule:
+    # Kaykhdem k0l nhar m3a 6 PM UTC (w9t mzyan l nas dyal USA)
+    - cron: '0 18 * * *'
+  workflow_dispatch: # Bach t-9der t-tla9o b ydik mni t-bghi t-jereb
+
+jobs:
+  post-to-pinterest:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # Muhima bach GitHub Actions y-9der y-update-i l-JSON
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Run Pinterest Bot Script
+      env:
+        PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+        PINTEREST_BOARD_ID: ${{ secrets.PINTEREST_BOARD_ID }}
+      run: |
+        cd blog
+        node pinterest-bot.js
+
+    - name: Commit and Push changes if JSON updated
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action Bot"
+        git diff --quiet || (git add blog/src/data/posts.json && git commit -m "chore: update pinned status [skip ci]" && git push)
